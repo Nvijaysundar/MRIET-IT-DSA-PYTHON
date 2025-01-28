@@ -1,0 +1,80 @@
+Grocery Inventory System
+
+A grocery store wants to implement a system to keep track of their inventory and sales. Each product in the store is identified by a unique name and has a price and stock quantity.
+
+The store manager wants a Python program that does the following:
+
+Input Details: Accept a list of product details where each product's information includes its name, price, and stock (all entered in a single line).
+Query Sales: Accept customer sales queries in the form of a dictionary, where the keys are product names, and the values are quantities to be purchased.
+Update Inventory: Update the stock after processing the sales queries. If the requested quantity is not available, the sale for that product should not proceed.
+Output Results: Print the total cost for the customer and the updated inventory in dictionary form.
+Input Details
+First Input: A list of products, where each product detail is a space-separated string in the format:
+
+name price stock
+Second Input: A dictionary where:
+Keys are product names.
+Values are quantities the customer wants to purchase.
+Output Details
+Total cost of the sale.
+Updated inventory in dictionary format.
+Example Input and Output
+
+Input:
+apple 10 50 banana 5 100 cherry 20 30
+{'apple': 5, 'banana': 10, 'cherry': 40}
+
+Output:
+Total Cost: 100
+Updated Inventory: {'apple': 45, 'banana': 90, 'cherry': 30}
+
+Explanation:
+Initial inventory:
+apple: Price = 10, Stock = 50
+banana: Price = 5, Stock = 100
+cherry: Price = 20, Stock = 30
+
+Customer requests:
+5 apples: Available, cost = 5 * 10 = 50.
+10 bananas: Available, cost = 10 * 5 = 50.
+40 cherries: Not enough stock (only 30 available), so sale doesn't proceed.
+Total cost = 50 + 50 = 100
+Updated inventory:
+apple: 50 - 5 = 45
+banana: 100 - 10 = 90
+cherry: 30 (unchanged).15:45 27-01-2025
+
+
+
+
+
+friut = list(input("Enter data").split(" "))
+#{name : {price : value, stock : value}}
+
+friuts = {}
+
+for i in range (0,len(friut),3):
+  name = friut[i]
+  price = int(friut[i+1])
+  stock = int(friut[i+2])
+  friuts[name] = {'price' :price,'stock' : stock}
+  
+order = list(input("Enter Data").split(" "))
+products = {}
+
+for i in range(0,len(order),2):
+  name = order[i]
+  items = int(order[i+1])
+  products[name] = items
+
+totalcost = 0
+
+for order_name,order_qt in products.items():
+  if order_name in fruits and fruits[order_name]['stock']>= order_qt:
+    totalcost += order_qt * fruits[order_name]['price']
+    fruits[order_name]['stock'] -= order_qt
+    
+    
+print(totalcost)
+print(fruits)
+  
