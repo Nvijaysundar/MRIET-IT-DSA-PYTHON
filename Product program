@@ -1,0 +1,84 @@
+Create a Python class Product with instance members name, id, price, and qty. Implement the following methods:
+
+1. *__init__*
+
+Initialize a Product object with name, id, price, and qty.
+
+2. *read_products*
+
+Read a specified number of products from the user and store them in a list.
+
+3. *disp*
+
+Display all products in the list.
+
+4. *update*
+
+Update the quantity or price of a product based on its id.
+
+Sample Input/Output
+
+Input
+
+Enter the number of products: 2
+Enter product 1 details (name id price qty): acer A1 45 456
+Enter product 2 details (name id price qty): hp A2 32 342
+Enter id to update: A2
+Enter new quantity: 345
+
+
+Output
+
+Product List:
+Name: acer, ID: A1, Price: 45, Quantity: 456
+Name: hp, ID: A2, Price: 32, Quantity: 342
+Updated Product List:
+Name: acer, ID: A1, Price: 45, Quantity: 456
+Name: hp, ID: A2, Price: 32, Quantity: 345
+
+
+
+class Product:
+    def __init__(self, name, id, price, qty):
+        self.name = name
+        self.id = id
+        self.price = price
+        self.qty = qty
+
+
+def disp(prods):
+    for temp in prods:
+        print(temp.name, temp.id, temp.price, temp.qty)
+
+
+def getProd(prods, id):
+    for temp in prods:
+        if id == temp.id:
+            return temp
+
+
+def updateQtyorPrice(prods):
+    id = input("Enter id to be updated : ")
+    choice = int(input("Enter 1.qty\t2.price : "))
+    if choice == 1:
+        temp = getProd(prods, id)
+        temp.qty = int(input("Enter New Qty: "))
+    elif choice == 2:
+        temp = getProd(prods, id)
+        temp.price = int(input("Enter New Price: "))
+
+
+def readProducts():
+    a = int(input("Enter No of products"))
+    prods = []
+    for i in range(0, a):
+        prods.append(Product(input("Enter name: "), input("Enter id: "),
+                             float(input("Enter price: ")), int(input("Enter Qty: "))))
+    disp(prods)
+    updateQtyorPrice(prods)
+    disp(prods)
+
+
+readProducts()
+
+
