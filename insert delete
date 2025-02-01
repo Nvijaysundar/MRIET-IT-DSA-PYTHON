@@ -1,0 +1,68 @@
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+
+class Sll(Node):
+    count = 0
+
+    def __init__(self):
+        self.head = None
+
+    def insert(self, data):
+        newNode = Node(data)
+        if self.head is None:
+            self.head = newNode
+        else:
+            pos = self.count//2
+            #print(pos)
+            if pos == 0:
+                newNode.next = self.head
+                self.head = newNode
+            else:
+                temp = self.head
+                for _ in range(0,pos-1):
+                    temp = temp.next
+                newNode.next = temp.next
+                temp.next = newNode
+        self.count += 1
+    def display(self):
+        if self.head is None:
+            print("List is Empty")
+        else:
+            temp = self.head
+            while temp is not None:
+                print(temp.data,end = " ")
+                temp = temp.next
+
+    def delete(self,data):
+        while self.head and self.head.data == data:
+            self.head = self.head.next
+
+        current = self.head
+        while current and current.next:
+            if current.next.data == data:
+                current.next = current.next.next
+            else:
+                current = current.next
+
+    def delete(self,data):
+        while self.head and self.head.data == data:
+            self.head = self.head.next
+        temp = self.head
+        while temp and temp.next:
+            if temp.next.data == data:
+                temp.next = temp.next.next
+            else:
+                temp = temp.next
+ob = Sll()
+no = int(input())
+for _ in range(0,no):
+    command,data = input().split(" ")
+    if command == "insert":
+        ob.insert(int(data))
+    else:
+        ob.delete(int(data))
+
+ob.display()
