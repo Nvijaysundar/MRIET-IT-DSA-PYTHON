@@ -1,0 +1,82 @@
+class Node:
+  def __init__(self,data):
+    self.data = data
+    self.next = None
+
+class TextEditor(Node):
+  def __init__(self):
+    self.left = None
+    self.right = None
+    
+  def pushLeft(self,data):
+    newNode = Node(data)
+    if self.left is None:
+      self.left = newNode
+    else:
+      newNode.next = self.left
+      self.left = newNode
+  
+  def pushRight(self,data):
+    newNode = Node(data)
+    if self.right is None:
+      self.right = newNode
+    else:
+      newNode.next = self.right
+      self.right = newNode
+  
+  def addText(self,string):
+    for char in string:
+      self.pushLeft(char)
+      
+  def backspace(self,count):
+    while self.left is not None and count > 0:
+      self.left = self.left.next
+      count -= 1
+  
+  def delFun(self,count):
+    while self.right is not None and count > 0:
+      self.right = self.right.next
+      count -= 1
+  
+  def moveCursorLeft(self,count):
+    while self.left and count > 0:
+      self.pushRight(self.left.data)
+      self.left = self.left.next
+      count -= 1
+  
+  def moveCursorRight(self,count):
+    while self.right and count > 0:
+      self.pushLeft(self.right.data)
+      self.right = self.right.next
+      count -= 1
+  
+  def display(self):
+    curr = self.left
+    temp = ""
+    while curr is not None:
+      temp += curr.data
+      curr = curr.next
+    print(temp[::-1],end="")
+    print("|",end="")
+    
+    curr = self.right
+    while curr is not None:
+      print(curr.data,end = "")
+      curr = curr.next
+      
+    print("\n")
+    
+
+ob = TextEditor()
+ob.addText("Hello")
+ob.display()
+ob.addText("Hai")
+ob.display()
+ob.moveCursorLeft(4)
+ob.display()
+ob.backspace(2)
+ob.display()
+ob.moveCursorRight(1)
+ob.display()
+ob.delFun(2)
+ob.display()
