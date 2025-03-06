@@ -1,0 +1,69 @@
+class Node:
+  def __init__(self,data):
+    self.data = data
+    self.left = None
+    self.right = None
+
+
+def insert(root,data):
+  if root is None:
+    return Node(data)
+  elif root.data == data:
+    return root
+  if data < root.data:
+    root.left = insert(root.left,data)
+  else: 
+    root.right = insert(root.right,data)
+  
+  return root
+def InOrder(root):
+  if root:
+    InOrder(root.left)
+    print(root.data, end = " ")
+    InOrder(root.right)
+
+def search(root,key):
+  if root is None or root.data == key:
+    return root
+  if key <root.data:
+    return search(root.left,key)
+  return search(root.right,key)
+  
+def find_min(root):
+  while root.left is not None:
+    root = root.left
+  return root
+  
+  
+def delete(root,data):
+  if root is None:
+    return None
+  if data < root.data :
+    root.left = delete(root.left,data)
+  elif data > root.data:
+    root.right = delete(root.right,data)
+  else:
+    if root.left is None:
+      return root.right
+    elif root.right is None:
+      return root.left
+    
+    temp = find_min(root.right)
+    root.data = temp.data
+    root.right = delete(root.right,temp.data)
+  return root
+    
+    
+    
+root = Node(43)
+root = insert(root,23)
+root = insert(root,42)
+root = insert(root,33)
+root = insert(root,56)
+InOrder(root)
+if search(root,int(input())) != None:
+  print("Found")
+else:
+  print("Not Found")
+delete(root,33)
+InOrder(root)
